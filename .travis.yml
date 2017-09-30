@@ -1,0 +1,22 @@
+language: go
+sudo: false
+go:
+  - 1.8
+  - 1.9
+go_import_path: github.com/timonwong/ali-oss-addons
+env:
+  global:
+    - GO15VENDOREXPERIMENT=1
+cache:
+  directories:
+    - vendor
+install:
+  - make dependencies
+script:
+  - make test
+  - make bench
+after_success:
+  - make cover
+  - bash <(curl -s https://codecov.io/bash)
+notifications:
+  email: false
